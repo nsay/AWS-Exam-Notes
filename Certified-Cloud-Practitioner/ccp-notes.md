@@ -428,11 +428,11 @@ the drives
 - 3rd party high-performance file systems on AWS
 - FSx for Lustre, Windows File Server, NetApp ONTAP
 
-FSx for Windows File Server
+**FSx for Windows File Server**
 - Windows native shared file system
 - Windows File Server
 
-FSx for Lustre
+**FSx for Lustre**
 - A fully managed, high-performance, scalable file storage for High Performance Computing (HPC)
 - Lustre is derived from “Linux” and “cluster”.
 
@@ -446,6 +446,278 @@ FSx for Lustre
 - **EC2 Instance Store:**
   - High performance hardware disk attached to our EC2 instance 
   - Lost if our instance is stopped / terminated
-- **EFS:** network file system, can be attached to 100s of instances in a region • EFS-IA: cost-optimized storage class for infrequent accessed files
+- **EFS:** network file system, can be attached to 100s of instances in a region 
+- **EFS-IA:** cost-optimized storage class for infrequent accessed files
 - **FSx for Windows:** Network File System for Windows servers
 - **FSx for Lustre:** High Performance Computing Linux file system
+
+---
+
+## Elastic Load Balancer (ELB) & Auto Scaling Groups (ASG)
+
+**Vertical Scalability**
+- means increasing the size of the instance
+- example: t2.micro -> t2.large
+
+**Horizontal Scalability**
+- means increasing the number of instances / systems for your application
+- Auto Scaling Group
+- Load Balancer
+
+**High Availability**
+- means running your application / system in at least 2 
+
+**Availability Zones**
+- avoids disaster situations
+- Auto Scaling Group multi AZ
+- Load Balancer multi AZ
+
+**Scalability:**
+- ability to accommodate a larger load by making the hardware stronger (scale up), or by adding nodes (scale out)
+
+**Elasticity:** 
+- once a system is scalable, elasticity means that there will be some “auto-scaling” so that the system can scale based on the load.This is “cloud-friendly”: pay-per-use, match demand, optimize costs
+
+**Agility:**
+- (not related to scalability - distractor) new IT resources are only a click away, which means that you reduce the time to make those resources available to your developers from weeks to just minutes.
+
+**Load Balancer:**
+- Spread load across multiple downstream instances
+- Do regular health checks to your instances
+- ![Load Balancer](images/load-balancer.png)
+
+#### Elastic Load Balancer (ELB)
+- managed load balancer
+- 4 Types:
+  - Application Load Balancer (HTTP / HTTPS only) – Layer 7
+  - Network Load Balancer (TCP) – Layer 4
+  - Gateway Load Balancer – Layer 3
+  - Classic Load Balancer (retired in 2023) – Layer 4 & 7
+  - ![Load Balancer Types](images/load-balancer-types.png)
+
+#### Auto Scaling Groups (ASG)
+- Scale out (add EC2 instances) to match an increased load
+- Scale in (remove EC2 instances) to match a decreased load
+
+**Manual Scaling:**
+- Update the size of an ASG manually
+
+**Dynamic Scaling:**
+- Simple / Step Scaling
+  - When a CloudWatch alarm is triggered (example CPU > 70%), then add 2 units 
+  - When a CloudWatch alarm is triggered (example CPU < 30%), then remove 1
+- Target Tracking Scaling
+  - Example: I want the average ASG CPU to stay at around 40%
+- Scheduled Scaling
+  - Anticipate a scaling based on known usage patterns
+  - Example: increase the min. capacity to 10 at 5 pm on Fridays
+- Predictive Scaling
+  - Uses Machine Learning to predict future traffic ahead of time
+
+
+#### ELB & ALB - Summary
+- High Availability vs Scalability (vertical and horizontal) vs Elasticity vs Agility in the Cloud
+- Elastic Load Balancers (ELB)
+  - Distribute traffic across backend EC2 instances, can be Multi-AZ
+  - Supports health checks
+  - 4 types: Classic (old), Application (HTTP – L7), Network (TCP – L4), Gateway (L3)
+- Auto Scaling Groups (ASG)
+  - Implement Elasticity for your application, across multiple AZ
+  - Scale EC2 instances based on the demand on your system, replace unhealthy
+  - Integrated with the ELB
+
+---
+
+## Amazon S3
+- ”infinitely scaling” storage
+- Backup and storage
+- Disaster Recovery
+- Archive
+- Hybrid Cloud storage • Application hosting
+- Media hosting
+- Data lakes & big data analytics • Software delivery
+- Static website
+
+#### S3 Buckets
+- allows people to store objects (files) in “buckets” (directories)
+- buckets must have a globally unique name (across all regions all accounts)
+- defined at region-level
+
+**S3 Bucket Objects:**
+- Objects (files) have a Key
+- key is composed of prefix + object name
+- Metadata
+- Tags
+- Version ID
+
+**S3 Bucket Security:**
+- User-Based
+  - IAM Policies – which API calls should be allowed for a specific user from IAM
+- Resource-Based
+  - Bucket Policies – bucket wide rules from the S3 console - allows cross account 
+  - Object Access Control List (ACL) – finer grain (can be disabled)
+  - Bucket Access Control List (ACL) – less common (can be disabled)
+- Encryption: encrypt objects in Amazon S3 using encryption keys
+
+**S3 Bucket Policies:**
+- JSON based policies
+- By default, blocks all public access
+
+#### S3 - Static Website Hosting
+- S3 can host static websites and have them accessible on the Internet
+- 403 Forbidden error, make sure the bucket policy allows public reads!
+
+#### S3 - Versioning
+- version your files in Amazon S3
+- Protect against unintended deletes (ability to restore a version) - Easy roll back to previous version
+
+#### S3 - Replication (CRR & SRR)
+- Must enable Versioning in source and destination buckets 
+- Cross-Region Replication (CRR)
+  - compliance, lower latency access, replication across
+accounts
+- Same-Region Replication (SRR)
+  - log aggregation, live replication between production and test accounts
+
+#### S3 - Storage Classes
+**General Purpose:**
+- Used for frequently accessed data
+- Low latency and high throughput
+- Use Cases: Big Data analytics, mobile & gaming applications, content distribution
+
+**Infrequent Access:**
+- data that is less frequently accessed, but requires rapid access when needed
+- **Standard-Infrequent Access (S3 Standard-IA):**
+  - Use cases: Disaster Recovery, backups
+- **One Zone-Infrequent Access (S3 One Zone-IA):**
+  - Use Cases: Storing secondary backup copies of on-premise data, or data you can recreate
+
+**Glacier Storage:**
+- Low-cost object storage meant for archiving / backup
+- **Glacier Instant Retrieval:**
+  - Millisecond retrieval, great for data accessed once a quarter 
+  - Minimum storage duration of 90 days
+- **Glacier Flexible Retrieval:**
+  - Expedited (1 to 5 minutes), Standard (3 to 5 hours), Bulk (5 to 12 hours) – free 
+  - Minimum storage duration of 90 days
+- **Glacier Deep Archive:**
+  - long term storage
+  - Standard (12 hours), Bulk (48 hours)
+  - Minimum storage duration of 180 days
+
+**Intelligent-Tiering:**
+- Small monthly monitoring and auto-tiering fee
+- Frequent Access tier (automatic): 
+  - default tier
+- Infrequent Access tier (automatic): 
+  - objects not accessed for 30 days
+- Archive Instant Access tier (automatic): 
+  - objects not accessed for 90 days 
+- Archive Access tier (optional): 
+  - configurable from 90 days to 700+ days 
+- Deep Archive Access tier (optional): 
+  - config. from 180 days to 700+ days
+
+#### Encryption
+- server side:
+  - server encrypts the file after receiving it
+- client side:
+  - client encrypted the file before sending it
+
+#### IAM Access Analyzer
+- Ensures that only intended people have access to your S3 buckets
+
+#### Shared Responsibility Model for S3
+**AWS:**
+- Infrastructure (global security, durability, availability, sustain concurrent loss of data in two facilities)
+- Configuration and vulnerability analysis
+- Compliance validation
+
+**YOU:**
+- S3 Versioning
+- S3 Bucket Policies
+- S3 Replication Setup
+- Logging and Monitoring • S3 Storage Classes
+- Data encryption at rest and in transit
+
+#### Snow Family
+- Highly-secure, physical portable devices to collect and process data at the
+edge, and migrate data into and out of AWS
+- Data migration:
+  - Snowcone
+  - Snowball Edge
+  - Snowmobile
+- Edge computing:
+  - Snowcone
+  - Snowball Edge
+
+**Snowcone:**
+- Small, portable computing, anywhere, rugged & secure, withstands harsh environments
+- Must provide your own battery / cables
+- Snowcone 
+  - 8 TB of HDD Storage
+- Snowcone SSD 
+  - 14 TB of SSD Storage
+
+**Snowball Edge:**
+- move TBs or PBs of data in or out of AWS
+- Alternative to moving data over the network (and paying network fees)
+- Storage Optimized
+  - 80 TB of HDD capacity
+- Compute Optimized
+  - 42 TB of HDD or 28TB NVMe capacity
+- Use cases: 
+  - large data cloud migrations, DC decommission, disaster recovery
+
+Pricing:
+- You pay for device usage and data transfer **OUT** of AWS
+- IN to AWS is FREE
+
+**Snowmobile:**
+- Transfer exabytes of data (1 EB = 1,000 PB = 1,000,000 TBs)
+- Each Snowmobile has 100 PB of capacity (use multiple in parallel)
+- High security: temperature controlled, GPS, 24/7 video surveillance 
+- Better than Snowball if you transfer more than 10 PB
+
+#### Edge Computing
+- Process data while it’s being created on an Edge Location.
+- Edge Location means
+  - Limited / no internet access
+  - Limited / no easy access to computing power
+- Only Snowcone or Snowball Edge devices
+- Use cases:
+  -  Preprocess data, Machine learning at the edge, Transcoding media streams
+- Long-term deployment options: 1 and 3 years discounted pricing
+
+#### OpsHub
+- software to manage Snow Family Device
+
+#### Storage Gateway
+- Bridge between on-premise data and cloud data in S3
+- Hybrid storage service to allow on- premises to seamlessly use the AWS Cloud
+- Use cases: 
+  - disaster recovery, backup & restore, tiered storage
+
+#### Amazon S3 - Summary
+- **Buckets vs Objects:** 
+  - global unique name, tied to a region
+- **S3 security:** 
+  - IAM policy, S3 Bucket Policy (public access), S3 Encryption
+- **S3 Websites:** 
+  - host a static website on Amazon S3
+- **S3 Versioning:** 
+  - multiple versions for files, prevent accidental deletes
+- **S3 Replication:** 
+  - same-region or cross-region, must enable versioning
+- **S3 Storage Classes:** 
+  - Standard, IA, 1Z-IA, Intelligent, Glacier (Instant, Flexible, Deep) 
+- **Snow Family:** 
+  - import data onto S3 through a physical device, edge computing
+- **OpsHub:** 
+  - desktop application to manage Snow Family devices
+- **Storage Gateway:** 
+  - hybrid solution to extend on-premises storage to S3
+
+---
+
+## 
