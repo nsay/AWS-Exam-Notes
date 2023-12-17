@@ -331,7 +331,7 @@ duration
 - IAM Roles assigned to EC2 & IAM user access management
 - Data security on your instance
 
-#### EC2 Summary
+#### EC2 - Summary
 - **EC2 Instance:** AMI (OS) + Instance Size (CPU + RAM) + Storage + security groups + EC2 User Data
 - **Security Groups:** Firewall attached to the EC2 instance
 - **EC2 User Data:** Script launched at the first start of an instance
@@ -343,7 +343,7 @@ duration
 
 ## EC2 Instances Storage
 
-#### EBS Volumes
+#### Elastic Block Store (EBS) Volumes
 - it's a network drive
 - locked to AZ
 - can only be mounted to one instance at a time
@@ -386,3 +386,66 @@ duration
 - ![EC2 Image Builder](images/ec2-image-builder.png)
 
 #### EC2 Instance Store
+- EBS has limited performance so, if you need a high-performance hardware disk, use EC2 Instance Store.
+- Better I/O performance
+- EC2 Instance Store lose their storage if they’re stopped (ephemeral)
+- Good for buffer / cache / scratch data / temporary content
+- Risk of data loss if hardware fails
+- Backups and Replication are your responsibility
+
+#### Elastic File System (EFS)
+- Managed NFS (network file system) that can be mounted on 100s of EC2
+- EFS works with Linux EC2 instances in multi-AZ
+- Highly available, scalable, expensive (3x gp2), pay per use, no capacity planning
+- ![EFS](images/efs.png)
+
+#### EBS vs EFS
+- ![EBS vs EBS](images/ebs-efs.png)
+
+#### EFS Infrequent Access (EFS-IA)
+- Storage class that is cost-optimized for files not accessed every day
+- EFS will automatically move your files to EFS-IA
+based on the last time they were accessed
+- Example: move files that are not accessed for 60 days to EFS-IA
+- <img src="images/efs-ia.png" height="308">
+
+#### Shared Responsibility Model for EC2 Storage
+**AWS:**
+- Infrastructure
+- Replication for data for EBS
+volumes & EFS drives
+- Replacing faulty hardware
+- Ensuring their employees cannot access your data
+
+**YOU:**
+- Setting up backup / snapshot procedures
+- Setting up data encryption
+- Responsibility of any data on
+the drives
+- Understanding the risk of using EC2 Instance Store
+
+#### Amazon FSx
+- 3rd party high-performance file systems on AWS
+- FSx for Lustre, Windows File Server, NetApp ONTAP
+
+FSx for Windows File Server
+- Windows native shared file system
+- Windows File Server
+
+FSx for Lustre
+- A fully managed, high-performance, scalable file storage for High Performance Computing (HPC)
+- Lustre is derived from “Linux” and “cluster”.
+
+#### EC2 Instance Storage - Summary
+- **EBS volumes:**
+  - network drives attached to one EC2 instance at a time
+  - MappedtoanAvailabilityZones
+  - Can use EBS Snapshots for backups / transferring EBS volumes across AZ
+- **AMI:** create ready-to-use EC2 instances with our customizations
+- **EC2 Image Builder:** automatically build, test and distribute AMIs
+- **EC2 Instance Store:**
+  - High performance hardware disk attached to our EC2 instance 
+  - Lost if our instance is stopped / terminated
+- **EFS:** network file system, can be attached to 100s of instances in a region • EFS-IA: cost-optimized storage class for infrequent accessed files
+- **FSx for Windows:** Network File System for Windows servers
+- **FSx for Lustre:** High Performance Computing Linux file system
