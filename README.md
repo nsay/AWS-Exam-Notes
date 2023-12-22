@@ -23,4 +23,5 @@ Index:
 13. [Cloud Monitoring](/Certified-Cloud-Practitioner/13_Cloud-Monitoring/Cloud-Monitoring.md)
 14. [Virtual Private Cloud (VPC) & Networking](/Certified-Cloud-Practitioner/14_VPC_Networking/VPC_Networking.md)
 15. [Security & Compliance](/Certified-Cloud-Practitioner/15_Security_Compliance/Security_Compliance.md)
+15. [Machine Learning](/Certified-Cloud-Practitioner/16_Machine-Learning/Machine-Learning.MD)
 
