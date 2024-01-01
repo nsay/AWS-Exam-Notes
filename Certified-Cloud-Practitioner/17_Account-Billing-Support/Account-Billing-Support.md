@@ -261,16 +261,16 @@
 
 **Developer Plan:**
 - Everything in Basic Plan
-- Business hours email access to **Cloud Support Associates** 
+- Business hours **email access** to **Cloud Support Associates** 
 - Unlimited cases / 1 primary contact
 - Case severity / response times:
   - General guidance: < 24 business hours 
   - System impaired: < 12 business hours
 
-**Business Plan:**
+**Business Plan: (24/7)**
 - Intended to be used if you have **production workloads**
 - Trusted Advisor – Full set of checks + API access
-- 24x7 phone, email, and chat access to **Cloud Support Engineers** 
+- **24x7 phone, email, and chat access** to **Cloud Support Engineers** 
 - Unlimited cases / unlimited contacts
 - Access to Infrastructure Event Management for additional fee.
 - Case severity / response times:
@@ -278,7 +278,7 @@
   - System impaired: < 12 business hours
   - Production system impaired: < 4 hours • Production system down: < 1 hour
 
-**Enterprise On-Ramp Plan:**
+**Enterprise On-Ramp Plan: (24/7)**
 - Everything in Business Plan
 - Intended to be used if you have **production or business critical workloads**
 - Access to a **pool of Technical Account Managers (TAM)**
@@ -289,7 +289,7 @@
   - Production system down: < 1 hour
   - **Business-critical system down: < 30 minutes**
 
-**Enterprise Plan:**
+**Enterprise Plan: (24/7)**
 - Everything in Business Plan
 - Intended to be used if you have **mission critical workloads**
 - Access to a **designated Technical Account Managers (TAM)**
