@@ -23,5 +23,8 @@ Index:
 13. [Cloud Monitoring](/Certified-Cloud-Practitioner/13_Cloud-Monitoring/Cloud-Monitoring.md)
 14. [Virtual Private Cloud (VPC) & Networking](/Certified-Cloud-Practitioner/14_VPC_Networking/VPC_Networking.md)
 15. [Security & Compliance](/Certified-Cloud-Practitioner/15_Security_Compliance/Security_Compliance.md)
-15. [Machine Learning](/Certified-Cloud-Practitioner/16_Machine-Learning/Machine-Learning.MD)
-
+16. [Machine Learning](/Certified-Cloud-Practitioner/16_Machine-Learning/Machine-Learning.MD)
+17. [Account Management, Billing & Support](/Certified-Cloud-Practitioner/17_Account-Billing-Support/Account-Billing-Support.md)
+18. [Advanced Identity](/Certified-Cloud-Practitioner/18_Advanced-Identity/Advanced-Identity.md)
+19. [Other AWS Services](/Certified-Cloud-Practitioner/19_Other-Services/Other-Services.md)
+20. [Architecting & Ecosystem](/Certified-Cloud-Practitioner/20_Architecting-Ecosystem/Architecting-Ecosystem.md)
