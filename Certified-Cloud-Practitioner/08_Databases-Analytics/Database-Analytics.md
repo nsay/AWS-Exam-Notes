@@ -31,7 +31,8 @@ features, shapes and constraints
 
   - PROS:
     - Automated provisioning, OS patching
-    - Continuous backups and restore to specific timestamp (Point in Time Restore)! • Monitoring dashboards
+    - Continuous backups and restore to specific timestamp (Point in Time Restore)! 
+    - Monitoring dashboards
     - Read replicas for improved read performance
     - Multi AZ setup for DR (Disaster Recovery)
     - Maintenance windows for upgrades
